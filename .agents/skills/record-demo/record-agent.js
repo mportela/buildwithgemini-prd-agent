@@ -70,15 +70,16 @@ function loadChromium() {
 }
 
 function ensureBrowserInstalled() {
-  // Downloads the Chromium binary into the shared per-user cache if it isn't
-  // already there. Idempotent and a no-op once installed, so it's cheap on
-  // repeat runs (and instant if the lab image pre-installed it).
+  if (fs.existsSync('/usr/bin/google-chrome')) {
+    return;
+  }
   try {
     execSync('npx --yes playwright install chromium', { stdio: 'inherit' });
   } catch (e) {
     console.warn('Could not run "playwright install chromium"; continuing in case it is already installed.');
   }
 }
+
 
 function hasFfmpeg() {
   try {
@@ -368,7 +369,15 @@ Options:
   fs.mkdirSync(tempDir, { recursive: true });
 
   console.log('\nLaunching Playwright Chromium browser...');
-  const browser = await chromium.launch({ headless: options.headless });
+  const launchOptions = {
+    headless: options.headless,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  };
+  if (fs.existsSync('/usr/bin/google-chrome')) {
+    launchOptions.executablePath = '/usr/bin/google-chrome';
+  }
+  const browser = await chromium.launch(launchOptions);
+
   const context = await browser.newContext({
     viewport: options.viewport,
     recordVideo: { dir: tempDir, size: options.viewport },

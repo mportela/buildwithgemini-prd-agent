@@ -2,192 +2,140 @@
 
 <img src="assets/build-with-gemini-banner.png" alt="Build with Gemini" width="100%" />
 
-# 🚀 Build with Gemini · Track 3
+# 📋 PRD Facilitator Agent
 
-### O kit inicial do Track 3 do Build with Gemini World Tour, e uma amostra do que os participantes construíram com ele.
+### Agente conversacional inteligente para condução de sessões de elicitação e geração de PRDs orientados a dados de negócio.
 
-Clone este repositório, abra o [Antigravity](https://antigravity.google) e crie seu próprio app agent-first no Google Cloud. Cada projeto na [galeria abaixo](#-projetos-em-destaque) foi construído da mesma forma: prototipado com Antigravity e `agents-cli`, equipado com Memory, tools, storage e RAG, implantado na Agent Platform e com uma interface web no Cloud Run.
-
-<br/>
-
-![Build with Gemini](https://img.shields.io/badge/Build%20with%20Gemini-World%20Tour-4285F4?logo=google&logoColor=white)
-![Track 3](https://img.shields.io/badge/Track%203-Agent--First%20Apps-EA4335)
-![Google Cloud](https://img.shields.io/badge/Google%20Cloud-Agent%20Platform-4285F4?logo=googlecloud&logoColor=white)
-![Built with ADK](https://img.shields.io/badge/Built%20with-ADK%20%2B%20agents--cli-34A853)
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
-![Projects](https://img.shields.io/badge/Projects-0-blue)
-
-<sub>️ <a href="https://google.github.io/agents-cli/guide/getting-started/">agents-cli</a> · 🤖 <a href="https://google.github.io/adk-docs/">ADK</a></sub>
+[![Build with Gemini](https://img.shields.io/badge/Build%20with%20Gemini-World%20Tour-4285F4?logo=google&logoColor=white)](https://github.com/mportela/buildwithgemini-prd-agent)
+[![Google Cloud](https://img.shields.io/badge/Google%20Cloud-Agent%20Platform-4285F4?logo=googlecloud&logoColor=white)](https://cloud.google.com/vertex-ai)
+[![Built with ADK](https://img.shields.io/badge/Built%20with-ADK%20%2B%20agents--cli-34A853)](https://google.github.io/adk-docs/)
+[![Model](https://img.shields.io/badge/Model-Gemini%20Flash-blue)](https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal-models)
 
 <br/>
 
-**🌎 Idioma:** 🇧🇷 Português · [🇪🇸 Español](../../es/track-3/README.md) · [⬅️ Início](../../README.md)
+<img src="./agent_demo.gif" alt="PRD Facilitator Agent Demo" width="90%" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+
+<br/>
 
 </div>
 
 ---
 
-## 📚 Índice
+## 💡 Sobre o Projeto
 
-- [🧩 Anatomia de um projeto do Track 3](#-anatomia-de-um-projeto-do-track-3)
-- [🏷️ Legenda de capacidades](#️-legenda-de-capacidades)
-- [📂 Projetos em destaque](#-projetos-em-destaque)
-  - [🛍️ Agentes de comércio e marketplace](#️-agentes-de-comércio-e-marketplace)
-  - [🍳 Agentes de comida e receitas](#-agentes-de-comida-e-receitas)
-  - [✈️ Agentes de viagem e locais](#️-agentes-de-viagem-e-locais)
-  - [💪 Agentes de saúde, fitness e bem-estar](#-agentes-de-saúde-fitness-e-bem-estar)
-  - [📚 Agentes de aprendizado e conhecimento](#-agentes-de-aprendizado-e-conhecimento)
-  - [🎨 Agentes criativos e de mídia](#-agentes-criativos-e-de-mídia)
-  - [🏢 Agentes de produtividade e corporativos](#-agentes-de-produtividade-e-corporativos)
-  - [🧪 Experimentais e outros](#-experimentais-e-outros)
-- [🧠 O que tem neste repositório](#-o-que-tem-neste-repositório)
-- [🧰 Construa o seu](#-construa-o-seu)
-- [📚 Recursos](#-recursos)
-- [🤝 Contribuir](#-contribuir)
-- [📄 Licença](#-licença)
+O **PRD Facilitator Agent** é um assistente conversacional desenhado para apoiar Product Managers, Tech Leads e times de desenvolvimento na condução estruturada de sessões de descoberta e elicitação de requisitos. 
+
+Ele elimina a ambiguidade em especificações de produto ao:
+1. **Cobrir todos os "Porquês" de negócio:** Conduz o time a explicitar dores reais do usuário, proposta de valor e impacto comercial antes de qualquer decisão técnica.
+2. **Definir métricas de sucesso quantificáveis:** Exige KPIs claros de negócio e métricas de produto mensuráveis.
+3. **Desacoplar requisitos de implementação:** Mantém o PRD focado no *o que* e no *por que*, deixando o *como técnico* a cargo do time de engenharia.
+4. **Gerenciar *Open Questions* com rigor:** Mapeia dependências e incertezas abertas para que nenhum PRD avance com premissas não validadas.
+5. **Persistir artefatos prontos:** Gera e armazena documentos padronizados em Markdown com critérios de aceitação no formato *Given/When/Then*.
 
 ---
 
-## 🧩 Anatomia de um projeto do Track 3
+## ✨ Principais Recursos
 
-Cada aplicação desta coleção é construída a partir do mesmo conjunto de blocos do Google Cloud apresentados no lab. Depois que você entender essa estrutura, conseguirá interpretar qualquer projeto daqui num piscar de olhos:
-
-| Camada | O que faz | Powered by |
-|---|---|---|
-| 🤖 **O Agente** | O loop central de raciocínio | [ADK](https://google.github.io/adk-docs/) + [`agents-cli`](https://google.github.io/agents-cli/guide/getting-started/), estruturado com [Antigravity](https://antigravity.google) |
-| 🧠 **Memory** | Lembra informações entre sessões | [Agent Platform Memory Bank](https://docs.cloud.google.com/gemini-enterprise-agent-platform/scale/memory-bank) |
-| 🗄️ **Dados estruturados** | Inventário, registros, listas | [Firestore](https://console.cloud.google.com/firestore) |
-| 🖼️ **Arquivos e blobs** | Imagens, conteúdo multimídia, recursos | [Cloud Storage](https://console.cloud.google.com/storage) |
-| 🔧 **Tools** | Executam ações reais e buscam dados reais | ADK function tools |
-| 📖 **RAG** | Respostas fundamentadas nos seus documentos | [Vertex AI RAG Engine](https://console.cloud.google.com/agent-platform/rag) |
-| 🎨 **Geração de mídia** | Cria imagens (e vídeo) sob demanda | `gemini-3.1-flash-lite-image` (Nano Banana 2 Lite) · Omni (vídeo) |
-| 🧪 **Code sandbox** | Executa código gerado com segurança | Execução de código na Agent Platform |
-| 🪟 **UI agent-first** | Cards e tabelas em vez de texto puro | [A2UI](https://adk.dev/integrations/a2ui/) |
-| 🌐 **Frontend** | Uma interface web para compartilhar | Proxy FastAPI no [Cloud Run](https://cloud.google.com/run) |
+- 🎯 **Elicitação Interativa e Progressiva:** Faz perguntas direcionadas e contextuais ao usuário sem sobrecarregá-lo com questionários extensos.
+- ❓ **Rastreamento Estrito de Questões em Aberto:** Identifica e acompanha pontos pendentes de definição de negócio, dependências externas e restrições.
+- 💾 **Gestão e Catálogo de PRDs:** Ferramentas nativas de persistência (`save_prd`, `list_prds`, `read_prd`) para manter um repositório centralizado de artefatos de produto.
+- 📐 **Critérios de Aceitação Formalizados:** Estruturação de regras de negócio em formato BDD (*Given/When/Then*) pronto para testes de aceitação.
+- 🔗 **Extensibilidade Corporativa:** Arquitetura pronta para integração com Jira e Confluence via ferramentas MCP (Model Context Protocol).
 
 ---
 
-## 🏷️ Legenda de capacidades
+## ☁️ Ferramentas e Serviços Google Cloud
 
-Cada projeto abaixo é marcado com os blocos de construção que utiliza, para que você encontre exatamente o padrão que quer aprender:
+O agente foi construído seguindo as melhores práticas do ecossistema **Google Cloud Agent Platform** e **ADK (Agent Development Kit)**:
 
-`🧠 Memory` · `🗄️ Firestore` · `🖼️ Storage` · `🔧 Tools` · `📖 RAG` · `🎨 Image Gen` · `🎬 Video` · `🧪 Sandbox` · `🪟 A2UI` · `🌐 Cloud Run`
-
----
-
-## 📂 Projetos em destaque
-
-Uma amostra do que os participantes do workshop construíram com este lab. As entradas são adicionadas aqui a partir do formulário de envio para swag e galeria após cada evento, por isso as categorias abaixo começam vazias e vão sendo preenchidas com o tempo. Explore-as em busca de inspiração, ou [envie o seu](#-contribuir) assim que publicar seu projeto com a skill `publish-to-github`.
-
-<!--
-Adicione uma entrada por projeto, neste formato:
-- 🌿 **[Nome do Projeto](https://github.com/seu-usuario/seu-repo)**: descrição de uma linha do que ele faz. <br/> <sub>`🗄️ Firestore` · `🎨 Image Gen` · `🪟 A2UI`, por [@usuario](https://github.com/usuario)</sub>
-
-Escolha as tags da Legenda de capacidades acima. Incremente o contador do badge "Projects" no topo ao adicionar um projeto.
--->
-
-### 🛍️ Agentes de comércio e marketplace
-
-### 🍳 Agentes de comida e receitas
-
-### ✈️ Agentes de viagem e locais
-
-### 💪 Agentes de saúde, fitness e bem-estar
-
-### 📚 Agentes de aprendizado e conhecimento
-
-### 🎨 Agentes criativos e de mídia
-
-### 🏢 Agentes de produtividade e corporativos
-
-### 🧪 Experimentais e outros
+| Ferramenta / Serviço | Papel na Arquitetura |
+|---|---|
+| 🧠 **Agent Platform Memory Bank** | Memória contextual de longo prazo entre sessões, lembrando contexto de negócio da empresa, convenções da stack e decisões tomadas em PRDs anteriores. |
+| 🗄️ **Cloud Firestore** | Armazenamento estruturado de metadados de catálogo de PRDs, controle de versão, status de aprovação e tracking de *open questions*. |
+| 🖼️ **Cloud Storage (GCS)** | Repositório central de artefatos de documentação exportados e ativos visuais gerados. |
+| 📖 **Vertex AI RAG Engine** | Grounding semântico sobre a base de conhecimento interno (diretrizes de design, PRDs históricos, manuais de compliance e arquitetura). |
+| 🎨 **Geração de Imagens (`gemini-3.1-flash-lite-image`)** | Criação sob demanda de mockups visuais conceituais de telas e fluxos de usuário para ilustrar os requisitos do PRD. |
+| 🪟 **A2UI (Agent-to-User Interface)** | Renderização de cards executivos, tabelas de status de requisitos e painéis interativos na interface de chat. |
+| 🚀 **Vertex AI Agent Runtime (Reasoning Engine)** | Hospedagem gerenciada na nuvem com escalabilidade automática e suporte ao protocolo **A2A (Agent-to-Agent)**. |
 
 ---
 
-## 🧠 O que tem neste repositório
+## 🛠️ Como Executar Localmente
 
-A pasta `.agents/` ensina ao Antigravity como construir agentes no Google Cloud.
+### Pré-requisitos
 
-### Skills
+- Python 3.10+
+- `uv` instalado (`curl -LsSf https://astral.sh/uv/install.sh | sh`)
+- `google-agents-cli` instalado (`uv tool install google-agents-cli`)
+- Autenticação configurada com Google Cloud:
+  ```bash
+  gcloud auth login
+  gcloud auth application-default login
+  ```
 
-Uma **skill** é um conjunto de instruções carregado automaticamente quando é relevante, permitindo que o agente execute o fluxo de trabalho corretamente em menos passos, em vez de ter que redescobri-lo a cada vez.
-
-| Skill | O que faz |
-| --- | --- |
-| [`pick-your-agent-project`](.agents/skills/pick-your-agent-project/SKILL.md) | Faça um brainstorming da sua aplicação e escreva um brief do projeto |
-| [`troubleshoot-lab-setup`](.agents/skills/troubleshoot-lab-setup/SKILL.md) | Verifique seu ambiente e resolva erros comuns de configuração |
-| [`memory-bank-setup`](.agents/skills/setup-memory-bank/SKILL.md) | Adicione memória entre sessões ao seu agente com o Vertex AI Memory Bank |
-| [`rag-engine-setup`](.agents/skills/build-rag/SKILL.md) | Fundamente seu agente em documentos com um corpus serverless do Vertex AI RAG Engine |
-| [`enable-a2ui`](.agents/skills/enable-a2ui/SKILL.md) | Faça seu agente responder com cards visuais ricos (A2UI) na UI de desenvolvimento do ADK |
-| [`build-agent-frontend`](.agents/skills/build-agent-frontend/SKILL.md) | Gere um frontend de chat com FastAPI e faça o deploy no Cloud Run |
-| [`record-demo`](.agents/skills/record-demo/SKILL.md) | Grave um vídeo de demonstração com a identidade visual do seu agente, com trilha sonora opcional gerada por IA |
-| [`publish-to-github`](.agents/skills/publish-to-github/SKILL.md) | Publique seu projeto finalizado no seu próprio GitHub e envie-o para ganhar swag |
-
-### Tools pré-configuradas (MCP)
-
-O [`.agents/mcp_config.json`](.agents/mcp_config.json) conecta dois servidores [Model Context Protocol](https://modelcontextprotocol.io/) que se autenticam com suas credenciais do gcloud, para que o agente possa consultar informações em vez de adivinhar:
-
-- **Firebase**: trabalhe diretamente com o Firestore e outros serviços do Firebase
-- **Google Developer Knowledge**: acesso fundamentado à documentação oficial do Google (Cloud, Firebase, ADK, Agent Platform)
-
-### Estrutura
-
-```text
-.agents/
-├── mcp_config.json    # Servidores MCP do Firebase + Developer Knowledge
-└── skills/            # as skills do workshop listadas acima
-```
-
----
-
-## 🧰 Construa o seu
-
-**Pré-requisitos** (a estação de trabalho do lab já vem com tudo isso pré-instalado; você vai precisar deles se estiver rodando na sua própria máquina):
-
-- Um **projeto do Google Cloud** com faturamento habilitado
-- **[Antigravity](https://antigravity.google)** (`agy`), o agente de programação que carrega as skills mencionadas acima
-- **[agents-cli](https://google.github.io/agents-cli/guide/getting-started/)**, construído sobre o [Agent Development Kit (ADK)](https://google.github.io/adk-docs/)
-- gcloud autenticado: `gcloud auth login` e `gcloud auth application-default login`
-- Uma **conta pessoal do GitHub** para o passo final de publicação e envio
-
-**Início rápido:**
+### 1. Clonar e Instalar
 
 ```bash
-git clone https://github.com/miohana/build-with-gemini
-cd build-with-gemini/pt-br/track-3
-agy
+git clone https://github.com/mportela/buildwithgemini-prd-agent.git
+cd buildwithgemini-prd-agent
+uv sync
 ```
 
-Ao iniciar, o Antigravity escaneia a pasta `.agents/` e carrega automaticamente as skills e tools acima. No prompt do AGY:
+### 2. Testar via Linha de Comando
 
-```text
-/skills            # ver as skills instaladas
-/mcp               # confirmar que as tools do firebase + google-developer-knowledge estão conectadas
+```bash
+agents-cli run "Quais PRDs temos documentados atualmente?"
 ```
 
-```text
-Verifique meu setup.   # executa a skill troubleshoot-lab-setup para validar seu ambiente
+```bash
+agents-cli run "Crie um PRD para uma funcionalidade de recuperação de carrinho abandonado com notificações push inteligentes"
+```
+
+### 3. Executar o Playground Interativo (Web UI)
+
+```bash
+agents-cli playground --host 0.0.0.0 --port 8080
+```
+
+Acesse no navegador: `http://localhost:8080/dev-ui/?app=app`
+
+---
+
+## 🧪 Testes e Avaliação
+
+Execute a suíte de testes unitários e de integração:
+
+```bash
+uv run pytest tests/unit tests/integration
+```
+
+Para rodar a avaliação contínua com métricas de qualidade:
+
+```bash
+agents-cli eval run
 ```
 
 ---
 
-## 📚 Recursos
+## 🚀 Implantação no Google Cloud (Agent Platform)
 
-- [Antigravity](https://antigravity.google)
-- [agents-cli](https://google.github.io/agents-cli/guide/getting-started/)
-- [Agent Development Kit (ADK)](https://google.github.io/adk-docs/)
-- [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform)
+O agente está preparado para deploy no **Vertex AI Agent Runtime**:
 
----
+```bash
+agents-cli deploy
+```
 
-## 🤝 Contribuir
+Consulte o status ou acesse o endpoint remoto implantado:
 
-**Construiu alguma coisa?** Publique com a skill `publish-to-github` e envie pelo formulário que ela te fornece. Com seus envios você pode ganhar swag, e os projetos em destaque serão adicionados à galeria de [Projetos em destaque](#-projetos-em-destaque) acima.
-
-**Encontrou um bug?** Se você encontrar algum problema em uma skill ou no lab, por favor [abra uma issue](https://github.com/miohana/build-with-gemini/issues).
+```bash
+agents-cli run \
+  --url https://us-east1-aiplatform.googleapis.com/reasoningEngines/v1/projects/385351064219/locations/us-east1/reasoningEngines/1802523969413185536/api \
+  --mode a2a \
+  "Olá, liste os PRDs disponíveis"
+```
 
 ---
 
 ## 📄 Licença
 
-Este não é um produto com suporte oficial do Google e é fornecido exclusivamente para fins de demonstração no workshop Build with Gemini.
+Este projeto foi desenvolvido como parte do workshop **Build with Gemini World Tour - Track 3**.
