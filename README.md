@@ -91,13 +91,21 @@ agents-cli run "Quais PRDs temos documentados atualmente?"
 agents-cli run "Crie um PRD para uma funcionalidade de recuperação de carrinho abandonado com notificações push inteligentes"
 ```
 
-### 3. Executar o Playground Interativo (Web UI)
+### 3. Executar a Interface Web do Frontend (Chat UI + A2UI)
 
 ```bash
-agents-cli playground --host 0.0.0.0 --port 8080
+cd frontend
+export AGENT_ENGINE_RESOURCE_NAME="projects/385351064219/locations/us-east1/reasoningEngines/1802523969413185536"
+export AGENT_DIRECTORY="app"
+python main.py
 ```
 
-Acesse no navegador: `http://localhost:8080/dev-ui/?app=app`
+Acesse no navegador: `http://localhost:8080` (Interface web de chat conectada ao agente implantado via protocolo A2A)
+
+Para rodar o Playground de desenvolvimento do ADK:
+```bash
+agents-cli playground --port 8000
+```
 
 ---
 
