@@ -91,7 +91,9 @@ agents-cli run "Quais PRDs temos documentados atualmente?"
 agents-cli run "Crie um PRD para uma funcionalidade de recuperação de carrinho abandonado com notificações push inteligentes"
 ```
 
-### 3. Executar a Interface Web do Frontend (Chat UI + A2UI)
+### 3. Executar a Interface Web do Frontend (Chat UI Redesenhada + A2UI)
+
+O projeto conta com um frontend web moderno em FastAPI com layout de diálogo customizado, tema Indigo/Violet, avatares, chips de prompts rápidos, renderização de markdown e suporte nativo a cards A2UI:
 
 ```bash
 cd frontend
@@ -100,7 +102,7 @@ export AGENT_DIRECTORY="app"
 python main.py
 ```
 
-Acesse no navegador: `http://localhost:8080` (Interface web de chat conectada ao agente implantado via protocolo A2A)
+Acesse no navegador: `http://localhost:8080` (Conectado diretamente ao agente no Vertex AI Agent Runtime via protocolo A2A)
 
 Para rodar o Playground de desenvolvimento do ADK:
 ```bash
